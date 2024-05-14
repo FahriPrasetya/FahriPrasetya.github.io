@@ -11,11 +11,9 @@ html, body {
     box-sizing: border-box;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
+header,footer {
     background: #5F30E2;
-    padding: 12px 32px;
+    padding: 2px 0 2px 16px;
     color: white;
 }
 
@@ -35,6 +33,7 @@ header {
     flex-grow: 1;
     height: fit-content;
 }
+
 
 
 .item {
@@ -122,7 +121,6 @@ input[type=text], input[type=date], .btn-submit:focus {
 .check-button {
     width: 40px;
     height: 40px;
-
     background: url('../assets/check-outline.svg');
     background-size: contain;
     margin-left: auto;
@@ -138,7 +136,6 @@ input[type=text], input[type=date], .btn-submit:focus {
 .trash-button {
     width: 40px;
     height: 40px;
-
     background: url('../assets/trash-outline.svg');
     background-size: contain;
     margin-left: 16px;
@@ -154,7 +151,6 @@ input[type=text], input[type=date], .btn-submit:focus {
 .undo-button {
     width: 40px;
     height: 40px;
-
     background: url('../assets/undo-ouline.svg');
     background-size: contain;
     margin-left: auto;
@@ -169,6 +165,10 @@ input[type=text], input[type=date], .btn-submit:focus {
 
 .check-button:focus, .trash-button {
     outline: none;
+}
+
+footer h3 {
+    text-align: center;
 }
 
 
@@ -190,19 +190,28 @@ input[type=text], input[type=date], .btn-submit:focus {
     }
 }
 
-@media only screen and (max-width: 767px) {
-header {
-    flex-direction: column;
-    align-items: center;
-    justify-content:center;
-    padding: 0;
-    margin: 0;
-    line-height: 8px;
-}
+@media only screen and (max-width: 768px) {
+    header {
+        text-align: center;
+    }
+    .wrapper .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .input-tugas {
+        max-width: 80%;
+        text-align: center;
+    }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .check-button, .trash-button, .undo-button {
+        width: 40px;
+        height: 36px;
+    }
 }
