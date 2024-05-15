@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function addTodo() {
         const textTodo = document.getElementById('title').value;
         const timesTamp = document.getElementById('date').value;
+        const deskripsi = document.getElementById('deskripsi').value;
         const generateID = generateId();
-        const todoObject = generateTodoObject(generateID, textTodo, timesTamp, false);
+        const todoObject = generateTodoObject(generateID, textTodo, timesTamp, deskripsi, false);
         todos.push(todoObject);
 
         document.dispatchEvent(new Event(RENDER_EVENT));
@@ -24,11 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return +new Date();
     }
 
-    function generateTodoObject(id, task, timestamp, isCompleted) {
+    function generateTodoObject(id, task, timestamp, deskripsi, isCompleted) {
         return {
             id,
             task,
             timestamp,
+            deskripsi,
             isCompleted
         }
     }
@@ -52,7 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
         container.classList.add('item', 'shadow');
         container.append(textContainer);
         container.setAttribute('id', `todo-${todoObject.id}`);
-
+        container.addEventListener('click',function() {
+            showNotifDetailTask();
+        })
 
 
 
@@ -60,14 +64,16 @@ document.addEventListener('DOMContentLoaded', function () {
             const undoButton = document.createElement('button');
             undoButton.classList.add('undo-button');
 
-            undoButton.addEventListener('click', function () {
+            undoButton.addEventListener('click', function (event) {
+                event.stopPropagation();
                 undoTaskFromCompleted(todoObject.id);
             })
 
             const trashButton = document.createElement('button');
             trashButton.classList.add('trash-button');
 
-            trashButton.addEventListener('click', function () {
+            trashButton.addEventListener('click', function (event) {
+                event.stopPropagation();
                 removeTaskFromCompleted(todoObject.id);
             })
 
@@ -78,7 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const checkButton = document.createElement('button');
             checkButton.classList.add('check-button');
 
-            checkButton.addEventListener('click', function () {
+            checkButton.addEventListener('click', function (event) {
+                event.stopPropagation();
                 addTaskToCompleted(todoObject.id);
             });
 
@@ -138,14 +145,57 @@ document.addEventListener('DOMContentLoaded', function () {
             return -1;
         }
 
+        function showNotifDetailTask() {
+            const detailTaskTitle = document.createElement('h2');
+            detailTaskTitle.innerText = todoObject.task;
+
+            const hr = document.createElement('hr');
+
+            const detailTaskDeskripsi = document.createElement('p');
+            detailTaskDeskripsi.innerText = `Deskripsi : ${todoObject.deskripsi}`;
+
+            const detailTaskStatus = document.createElement('h4');
+            if(todoObject.isCompleted) {
+                detailTaskStatus.innerHTML = 'Status : <span>Finished</span>';
+                detailTaskStatus.classList.add('task-status-finish');
+            }
+            else {
+                detailTaskStatus.innerHTML = 'Status : <span>Not Finished</span>';
+                detailTaskStatus.classList.add('task-status-not-finish');
+            }
+
+            const detailTaskDeadline = document.createElement('h4');
+            detailTaskDeadline.innerText = `DeadLine : ${todoObject.timestamp}`;
+
+            const buttonCloseNotifDetail = document.createElement('button');
+            buttonCloseNotifDetail.innerText = 'Close';
+            buttonCloseNotifDetail.classList.add('button-close-notif');
+            buttonCloseNotifDetail.addEventListener('click',function() {
+                fieldDetailTask.style.display = 'none';
+            })
+
+            const fieldButtonCloseNotif = document.createElement('div');
+            fieldButtonCloseNotif.classList.add('field-button-close-notif');
+            fieldButtonCloseNotif.append(buttonCloseNotifDetail);
+
+            const fieldDetailTask = document.createElement('div');
+            fieldDetailTask.classList.add('detail-tugas');
+            fieldDetailTask.append(detailTaskTitle,hr,detailTaskDeskripsi,detailTaskStatus,detailTaskDeadline,fieldButtonCloseNotif);
+
+            const body = document.body;
+
+            body.append(fieldDetailTask);
+        }
+
+        
         return container;
     }
 
     document.addEventListener(RENDER_EVENT, function () {
-        const uncompletedTODOList = document.getElementById('todos');
+        let uncompletedTODOList = document.getElementById('todos');
         uncompletedTODOList.innerHTML = '';
 
-        const completedTODOList = document.getElementById('completed-todos');
+        let completedTODOList = document.getElementById('completed-todos');
         completedTODOList.innerHTML = '';
 
         for (const todoItem of todos) {
@@ -153,8 +203,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!todoItem.isCompleted) {
                 uncompletedTODOList.append(todoElement);
             }
-            else
+            else {
                 completedTODOList.append(todoElement);
+            }
         }
     })
 
@@ -192,5 +243,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (isStorageExist()) {
         loadDataFromStorage();
-      }
+    }
 })

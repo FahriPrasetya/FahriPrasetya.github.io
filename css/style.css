@@ -57,7 +57,6 @@ header,footer {
     display: flex;
     padding: 16px;
     flex-direction: column;
-    height: 300px;
     border-radius: 16px;
 }
 
@@ -76,7 +75,7 @@ header,footer {
     box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
 }
 
-input[type=text], input[type=date] {
+input[type=text], input[type=date],textarea {
     font-family: Raleway, sans-serif;
     background: #F5F1FF;
     border: 2px solid #9475EA;
@@ -106,7 +105,7 @@ input[type=text], input[type=date] {
     color: white;
 }
 
-input[type=text], input[type=date], .btn-submit:focus {
+input[type=text], input[type=date], textarea, .btn-submit:focus {
     outline: none;
 }
 
@@ -171,6 +170,80 @@ footer h3 {
     text-align: center;
 }
 
+footer h3 span {
+    font-weight: 700;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0);
+    }
+}
+
+.detail-tugas {
+    width: 350px;
+    background-color: #5F30E2;
+    border-radius: 12px;
+    padding: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    transition:0.3s;
+    animation: slideDown 0.5s forwards;
+}
+
+.detail-tugas h2 {
+    color: white;
+}
+
+.detail-tugas p {
+    color: white;
+    margin-bottom: 50px;
+}
+
+.detail-tugas h4 {
+    line-height: 2px;
+    color: white;
+}
+
+.task-status-not-finish span {
+    background-color: darkred;
+    padding: 3px 5px;
+    border-radius: 2px;
+    font-size: 0.9rem;
+}
+
+.task-status-finish span {
+    background-color: darkgreen;
+    padding: 3px 5px;
+    border-radius: 2px;
+    font-size: 0.9rem;
+}
+
+.field-button-close-notif {
+    float: right;
+}
+
+.button-close-notif {
+    text-align: right;
+    padding: 5px 17px;
+    background-color: darkred;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    border: 1px sollid #5F30E2;
+    margin-right: 4px;
+    margin-top: 16px;
+}
+
 
 @media only screen and (max-width: 1024px) {
     .wrapper {
@@ -208,10 +281,5 @@ footer h3 {
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    .check-button, .trash-button, .undo-button {
-        width: 40px;
-        height: 36px;
     }
 }
