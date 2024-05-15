@@ -255,7 +255,7 @@ footer h3 span {
     }
 
     .list-item {
-        width: 90%;
+        width: 95%;
     }
 
     .form {
@@ -267,11 +267,13 @@ footer h3 span {
     header {
         text-align: center;
     }
+
     .wrapper .container {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     .input-tugas {
         max-width: 80%;
         text-align: center;
@@ -282,4 +284,20 @@ footer h3 span {
         flex-direction: column;
         align-items: center;
     }
+
+    .check-button {
+        width: 40px;
+        height: 38.8px;
+    }
+
+    .trash-button {
+        width: 40px;
+        height: 37px;
+    }
+
+    .undo-button {
+        width: 40px;
+        height: 37px;
+    }
+
 }

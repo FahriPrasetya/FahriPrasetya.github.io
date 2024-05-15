@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const textTodo = document.getElementById('title').value;
         const timesTamp = document.getElementById('date').value;
         const deskripsi = document.getElementById('deskripsi').value;
+        if(deskripsi == null) {
+            return '-'
+        }
         const generateID = generateId();
         const todoObject = generateTodoObject(generateID, textTodo, timesTamp, deskripsi, false);
         todos.push(todoObject);
